@@ -28,7 +28,7 @@ const unsigned long dayLength = 86400000; // Testing: 24hrs.
 
 // Debounce
 unsigned long lastPressTime = 0;
-const unsigned long debounceDelay = 200;
+const unsigned long debounceDelay = 500; //changed from 200 for new buttons since more sensitive
 
 
 bool floodTriggered = false;

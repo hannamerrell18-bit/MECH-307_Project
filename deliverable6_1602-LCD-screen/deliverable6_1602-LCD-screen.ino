@@ -1,31 +1,67 @@
 #include <LiquidCrystal.h>
 
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2); // RS, E, D4, D5, D6, D7
+// LCD pins: RS, E, D4, D5, D6, D7
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
-// special characters
-byte rainCloudChar[8] = {
-	0b01110,
-	0b11111,
-	0b11111,
-	0b11111,
-	0b10101,
-	0b01010,
-	0b10101,
-	0b01010
+// Messages to display
+const char* messages[] = {
+  "Temp: ",
+  "Humidity: ",
+  "Pressure: ",
+  "Wind speed: ",
+  "Panel Pos: ",
+  "Rain: "
 };
+const int totalMessages = sizeof(messages) / sizeof(messages[0]);
 
-void setup()
-{
-  lcd.begin(16, 2); //configures lcd as 16-column, 2 row display
+// Timing variables
+unsigned long previousMillis = 0;
+const unsigned long autoInterval = 5000; // Auto-cycle every 3 seconds
+
+// Button settings
+const int buttonPin = 21;
+bool autoMode = true; // Start in auto mode
+int currentMessage = 0;
+
+// Debounce variables
+unsigned long lastButtonPress = 0;
+const unsigned long debounceDelay = 500; // ms
+
+void setup() {
+  lcd.begin(16, 2);
+  pinMode(buttonPin, INPUT_PULLUP); // Button to GND
+  lcd.print("Hi! Hold plz...");
+}
+
+void loop() {
+  unsigned long currentMillis = millis();
+
+  // Handle button press
+  if (digitalRead(buttonPin) == LOW) { // Button pressed
+    if (currentMillis - lastButtonPress > debounceDelay) {
+      lastButtonPress = currentMillis;
+
+      // Switch to manual mode and go to next message
+      autoMode = false;
+      currentMessage = (currentMessage + 1) % totalMessages;
+      displayMessage(currentMessage);
+    }
+  }
+
+  // Auto mode cycling
+  if (autoMode && (currentMillis - previousMillis >= autoInterval)) {
+    previousMillis = currentMillis;
+    currentMessage = (currentMessage + 1) % totalMessages;
+    displayMessage(currentMessage);
+  }
+}
+
+// Function to display a message on LCD
+void displayMessage(int index) {
+  lcd.clear();
   lcd.setCursor(0, 0);
-  lcd.print("Current temp: ");
-  
-  lcd.createChar(0, rainCloudChar); // create a new custom character
-
-  lcd.setCursor(13, 0); // move cursor to (2, 0)
-  lcd.write((byte)0);  // print the custom char at (2, 0)
+  lcd.print("Current weather:");
+  lcd.setCursor(0, 1);
+  lcd.print(messages[index]);
 }
 
-void loop()
-{
-}

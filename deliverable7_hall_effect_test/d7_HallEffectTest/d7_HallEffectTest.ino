@@ -6,7 +6,7 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 
 // Pins
-const int buttonPin = 7;
+const int buttonPin = 9;
 const int buzzerPin = 8;
 
 
@@ -17,8 +17,8 @@ float lastRainTotal = -1.0; // LCD displays 0mm rainfall
 
 
 // Calibration
-const float mmPerTip = 0.173; // (mm) - need to change after solidworks model is made.
-const float floodThreshold = 20.0; // (mm)- I need to do more research on this to confirm
+const float mmPerTip = 5.50; // (mm) - need to change after solidworks model is made.
+const float floodThreshold = 20.00; // (mm)- I need to do more research on this to confirm
 
 
 // Timing

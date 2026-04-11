@@ -22,6 +22,7 @@ void tcaselect(uint8_t i) {
 void setup() {
   Serial.begin(9600);
  
+  tcaselect(2);
   if (!display.begin(SSD1309_SWITCHCAPVCC, SCREEN_ADDRESSS)) {
     Serial.println(F("SSD1309 allocation failed"));
     for (;;); // basically an infinite loop, functions same as a while(true) loop

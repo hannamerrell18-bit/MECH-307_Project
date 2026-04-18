@@ -33,7 +33,7 @@ void setup() {
   display.setTextSize(1);         // 6x8 pixels per character
   display.setTextColor(SSD1309_PIXEL_ON);       // turn pixels on
   display.setCursor(0, 0);
-  display.println(F("Hello world"));
+  display.println(F("Hello"));
   display.println();
   display.setTextSize(2);         // 12x16 pixels per character
   display.println(F("DIYables"));

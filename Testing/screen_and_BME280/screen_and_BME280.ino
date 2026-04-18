@@ -8,7 +8,7 @@
 
 #define SEALEVELPRESSURE_HPA (1013.25)
 #define BME_ADDRESS 0x77
-Adafruit_BME280 bme;
+Adafruit_BME280 bme; //create BME 280 sensor object
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -27,19 +27,22 @@ void tcaselect(uint8_t i) {
 void setup() {
   // put your setup code here, to run once:
  Serial.begin(115200);
+ Wire.begin(); //fail safe for beginning I2C comm; most libraries have it, but good habit to use in code
  
+ tcaselect(2);
+ if (!display.begin(SSD1309_SWITCHCAPVCC, SCREEN_ADDRESSS)) {
+  Serial.println(F("SSD1309 allocation failed"));
+  while(1); // basically an infinite loop, functions same as a while(true) loop
+ }
+
  tcaselect(3);
  if(!bme.begin(BME_ADDRESS)) {   // default I2C address is 0x76
   Serial.println("Could not find valid BME280 sensor, check wiring!");
   while(1);
  }
- 
-  tcaselect(2);
-if (!display.begin(SSD1309_SWITCHCAPVCC, SCREEN_ADDRESSS)) {
-  Serial.println(F("SSD1309 allocation failed"));
-  while(1); // basically an infinite loop, functions same as a while(true) loop
-}
 
+ display.clearDisplay();
+ display.display();
 }
 
 void loop() {

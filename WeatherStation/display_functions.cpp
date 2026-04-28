@@ -35,3 +35,15 @@ void writeStationWelcome() {
   display.print("Welcome!");
   display.display();
 }
+
+// void writeRainGauge(){
+//   tcaselect(2);
+//   display.clearDisplay();
+//   display.setCursor(0, 0);
+//   display.setTextSize(2);
+//   display.setTextColor(SSD1309_PIXEL_ON);
+//   display.print("Rain amount: ");
+//   display.print(rainGauge);
+//   display.println(" in");
+//   display.display();
+// }

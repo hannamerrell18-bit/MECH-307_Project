@@ -11,7 +11,7 @@
 void setup() {
   //button define
   pinMode(buttonPin, INPUT_PULLUP); //button to GND
-  
+
   Serial.begin(115200);
   Wire.begin();
 
@@ -37,33 +37,45 @@ void setup() {
 }
 
 void loop() {
-  tcaselect(3);
-  Serial.println("Reading BME 280 on channel 3");
+// // Handle button press
+//   if (digitalRead(buttonPin) == LOW) { // Button pressed
+//     if (currentMillis - lastButtonPress > debounceDelay) {
+//       lastButtonPress = currentMillis;
 
-  float tempC = bme.readTemperature();
-  float tempF = tempC * (9.0 / 5.0) + 32.0;
-  float pressure_hPa = bme.readPressure() / 100.0F;
-  float pressure_inHg = pressure_hPa * 0.02953;
-  float humidity = bme.readHumidity();
+//       // Switch to manual mode and go to next message
+//       autoMode = false;
+//       currentMessage = (currentMessage + 1) % totalMessages;
+//       displayMessage(currentMessage);
+//     }
+//   }
+    tcaselect(3);
+    Serial.println("Reading BME 280 on channel 3");
 
-  Serial.print("Temp: ");
-  Serial.print(tempF);
-  Serial.println(" F");
+    float tempC = bme.readTemperature();
+    float tempF = tempC * (9.0 / 5.0) + 32.0;
+    float pressure_hPa = bme.readPressure() / 100.0F;
+    float pressure_inHg = pressure_hPa * 0.02953;
+    float humidity = bme.readHumidity();
+    // float rainGauge = ;
 
-  Serial.print("Press.: ");
-  Serial.print(pressure_hPa);
-  Serial.print(" hPa / ");
-  Serial.print(pressure_inHg);
-  Serial.println(" inHg");
+    Serial.print("Temp: ");
+    Serial.print(tempF);
+    Serial.println(" F");
 
-  Serial.print("Humidity: ");
-  Serial.print(humidity);
-  Serial.println("%");
+    Serial.print("Press.: ");
+    Serial.print(pressure_hPa);
+    Serial.print(" hPa / ");
+    Serial.print(pressure_inHg);
+    Serial.println(" inHg");
 
-  Serial.println("Writing OLED on channel 2");
-  Serial.println();
+    Serial.print("Humidity: ");
+    Serial.print(humidity);
+    Serial.println("%");
 
-  writeWeatherStationDisplay(tempF, pressure_hPa, humidity);
+    Serial.println("Writing OLED on channel 2");
+    Serial.println();
 
-  delay(5000);
+    writeWeatherStationDisplay(tempF, pressure_hPa, humidity);
+
+    delay(5000);
 }

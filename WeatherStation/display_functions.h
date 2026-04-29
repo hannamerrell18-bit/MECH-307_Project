@@ -3,6 +3,8 @@
 
 void writeWeatherStationDisplay(float tempF, float pressure_hPa, float humidity);
 void writeStationWelcome();
+void writeHallSensorDisplay(int hallState);
+
 // void writeRainGauge();
 
 // const int totalMessages = sizeof(messages) / sizeof(messages[0]);

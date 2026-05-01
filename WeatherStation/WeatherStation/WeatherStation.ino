@@ -35,7 +35,7 @@ float rainTotal = 0.0;
 bool lastRainSensorState = HIGH;
 
 const float mmPerTip = 0.173;
-const float mmThreshold = 25.4;
+const float mmThreshold = 1.0;
 int lastBuzzThreshold = 0;
 
 unsigned long lastRainTipTime = 0;
@@ -143,6 +143,7 @@ void updateRainGauge() {
 void setup() {
   Serial.begin(115200);
   Wire.begin();
+  randomSeed(analogRead(A0));
 
   pinMode(RAIN_SENSOR_PIN, INPUT_PULLUP);
   pinMode(SCREEN_BUTTON_PIN, INPUT_PULLUP);

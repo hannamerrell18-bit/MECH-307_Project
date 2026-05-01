@@ -29,21 +29,23 @@ void writeWeatherStationDisplay(float tempF, float pressure_hPa, float humidity)
   display.display();
 }
 
-void writeHallSensorDisplay(int hallState) {
+void writeRainGaugeDisplay(float rainTotal, int tipCount) {
   tcaselect(2);
   display.clearDisplay();
   display.setCursor(0, 0);
   display.setTextSize(1);
   display.setTextColor(SSD1309_PIXEL_ON);
 
-  display.println("Hall Sensor");
+  display.println("Rain Gauge");
   display.println();
 
-  if (hallState == LOW) {
-    display.println("Magnet Detected");
-  } else {
-    display.println("No Magnet");
-  }
+  display.print("Rain: ");
+  display.print(rainTotal, 2);
+  display.println(" mm");
+  display.println();
+
+  display.print("Tips: ");
+  display.println(tipCount);
 
   display.display();
 }
@@ -65,10 +67,10 @@ void writeServoDisplay(int servoPosition, int servoState) {
   display.print("Mode: ");
 
   if (servoState == 0) {
-    display.println("Tracking");
+    display.println("East -> West");
   }
   else if (servoState == 1) {
-    display.println("Returning");
+    display.println("West -> East");
   }
   else if (servoState == 2) {
     display.println("Waiting");

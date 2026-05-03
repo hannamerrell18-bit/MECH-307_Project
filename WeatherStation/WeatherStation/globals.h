@@ -18,9 +18,9 @@
 #define OLED_RESET -1
 #define SCREEN_ADDRESSS 0x3C
 
-#define SCREEN_BUTTON_PIN 6
-#define RAIN_SENSOR_PIN 7
-#define BUZZER_PIN 8
+#define SCREEN_BUTTON_PIN 8
+#define RAIN_SENSOR_PIN 6
+#define BUZZER_PIN 10
 
 
 extern Adafruit_BME280 bme;

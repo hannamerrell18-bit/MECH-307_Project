@@ -153,16 +153,12 @@ void writeRainGaugeDisplay(float rainTotal, int tipCount) {
   display.setCursor(0, 34);
   display.print("Rain: ");
   display.print(rainTotal, 2);
-  display.println(" mm");
-
-  display.setCursor(0, 48);
-  display.print("Tips: ");
-  display.println(tipCount);
+  display.println(" in");
 
   display.display();
 }
 
-void writeServoDisplay(int servoPosition, int servoState) {
+void writeServoDisplay(int servoPosition, ServoState servoState) {
   tcaselect(2);
   display.clearDisplay();
   display.setTextColor(SSD1309_PIXEL_ON);
@@ -225,7 +221,7 @@ void writeWindDisplay(float windSpeedMPH, const char* windDirection) {
   display.println(" mph");
 
   display.setCursor(0, 34);
-  display.print("Dir: ");
+  display.print("Direction: ");
   display.println(windDirection);
 
   display.display();

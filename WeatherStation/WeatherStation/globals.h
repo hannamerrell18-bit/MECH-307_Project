@@ -21,7 +21,7 @@
 #define SCREEN_BUTTON_PIN 6
 #define RAIN_SENSOR_PIN 7
 #define BUZZER_PIN 8
-#define SERVO_PIN 9
+
 
 extern Adafruit_BME280 bme;
 extern DIYables_OLED_SSD1309 display;

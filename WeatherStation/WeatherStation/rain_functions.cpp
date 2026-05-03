@@ -8,8 +8,8 @@ int tipCount = 0;
 float rainTotal = 0.0;
 bool lastRainSensorState = HIGH;
 
-const float mmPerTip = 0.173;
-const float mmThreshold = 25.4;
+const float inPerTip = 0.1;
+const float inThreshold = 1;
 int lastBuzzThreshold = 0;
 
 unsigned long lastRainTipTime = 0;
@@ -35,10 +35,10 @@ void updateRainGauge() {
   if (lastRainSensorState == HIGH && currentRainState == LOW) {
     if (millis() - lastRainTipTime > rainDebounceDelay) {
       tipCount++;
-      rainTotal = tipCount * mmPerTip;
+      rainTotal = tipCount * inPerTip;
       lastRainTipTime = millis();
 
-      int currentThreshold = (int)(rainTotal / mmThreshold);
+      int currentThreshold = (int)(rainTotal / inThreshold);
 
       if (currentThreshold > lastBuzzThreshold) {
         tone(BUZZER_PIN, 1000);

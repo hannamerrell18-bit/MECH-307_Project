@@ -33,7 +33,7 @@ void updateServoTracker() {
 
       if (servoPosition < 180) {
         servoPosition++;
-        solarServo.write(servoPosition);
+        solarServo.write(180 - servoPosition);
       } else {
         servoState = SERVO_RETURNING;
       }
@@ -45,7 +45,7 @@ void updateServoTracker() {
 
       if (servoPosition > 0) {
         servoPosition--;
-        solarServo.write(servoPosition);
+        solarServo.write(180 - servoPosition);
       } else {
         servoState = SERVO_WAITING;
         waitStartTime = currentMillis;

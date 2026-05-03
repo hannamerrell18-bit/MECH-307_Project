@@ -1,6 +1,7 @@
 #include "display_functions.h"
 #include "globals.h"
 #include "mux_functions.h"
+#include "servo_functions.h"
 
 // ----- Cloud placement -----
 const int CLOUD_X = 82;
@@ -205,6 +206,27 @@ void writeServoDisplay(int servoPosition, int servoState) {
   else if (servoState == 2) {
     display.println("Night");
   }
+
+  display.display();
+}
+
+void writeWindDisplay(float windSpeedMPH, const char* windDirection) {
+  tcaselect(2);
+  display.clearDisplay();
+  display.setTextColor(SSD1309_PIXEL_ON);
+  display.setTextSize(1);
+
+  display.setCursor(0, 0);
+  display.println("Wind");
+
+  display.setCursor(0, 18);
+  display.print("Speed: ");
+  display.print(windSpeedMPH, 1);
+  display.println(" mph");
+
+  display.setCursor(0, 34);
+  display.print("Dir: ");
+  display.println(windDirection);
 
   display.display();
 }

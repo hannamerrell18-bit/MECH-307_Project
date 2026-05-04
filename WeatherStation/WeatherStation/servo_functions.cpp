@@ -23,7 +23,7 @@ unsigned long waitStartTime = 0;
 
 void initServoTracker() {
   solarServo.attach(SERVO_PIN);
-  solarServo.write(servoPosition);
+  solarServo.write(180 - servoPosition);
 }
 
 void updateServoTracker() {
@@ -35,7 +35,7 @@ void updateServoTracker() {
 
       if (servoPosition < SERVO_MAX_ANGLE) {
         servoPosition++;
-        solarServo.write(servoPosition);
+        solarServo.write(180 - servoPosition);
       } else {
         servoState = SERVO_RETURNING;
       }

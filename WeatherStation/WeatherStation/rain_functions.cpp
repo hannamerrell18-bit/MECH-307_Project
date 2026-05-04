@@ -34,10 +34,10 @@ void updateRainGauge() {
   if (lastRainSensorState == HIGH && currentRainState == LOW) {
     if (millis() - lastRainTipTime > rainDebounceDelay) {
       tipCount++;
-      rainTotal = tipCount * mmPerTip;
+      rainTotal = tipCount * inPerTip;
       lastRainTipTime = millis();
 
-      int currentThreshold = (int)(rainTotal / mmThreshold);
+      int currentThreshold = (int)(rainTotal / inThreshold);
 
       if (currentThreshold > lastBuzzThreshold) {
         tone(BUZZER_PIN, 1000);

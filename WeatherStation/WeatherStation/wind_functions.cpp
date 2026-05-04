@@ -7,8 +7,8 @@
 volatile int anemometerPulseCount = 0;
 unsigned long lastWindSpeedTime = 0;
 
-const float radius = 0.12;
-const float k = 0.9;
+const float radius = 0.12;   // 21 mm
+const float k = 0.9;          // calibration factor
 
 float windSpeedMPH = 0.0;
 float windSpeedMS = 0.0;
@@ -58,6 +58,7 @@ void updateWindEncoder() {
   lastState = state;
 }
 
+// ---------------- INIT ----------------
 void initWindSensors() {
   pinMode(ANEMOMETER_PIN, INPUT_PULLUP);
   pinMode(WINDVANE_CLK, INPUT_PULLUP);
@@ -67,16 +68,19 @@ void initWindSensors() {
   attachInterrupt(digitalPinToInterrupt(WINDVANE_CLK), updateWindEncoder, CHANGE);
   attachInterrupt(digitalPinToInterrupt(WINDVANE_DT), updateWindEncoder, CHANGE);
 
-  lastWindSpeedTime = millis();
-
+  // Initialize lastState so the first transition is interpreted correctly
   int clkState = digitalRead(WINDVANE_CLK);
   int dtState = digitalRead(WINDVANE_DT);
   lastState = (clkState << 1) | dtState;
+
+  lastWindSpeedTime = millis();
 }
 
+// ---------------- UPDATE ----------------
 void updateWindSensors() {
   unsigned long currentTime = millis();
 
+  // Update wind speed every 1 second
   if (currentTime - lastWindSpeedTime >= 1000) {
     noInterrupts();
     int count = anemometerPulseCount;
@@ -90,6 +94,7 @@ void updateWindSensors() {
     lastWindSpeedTime = currentTime;
   }
 
+  // Update wind direction
   noInterrupts();
   int step = encoderPos;
   interrupts();

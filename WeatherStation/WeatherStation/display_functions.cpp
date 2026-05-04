@@ -1,7 +1,7 @@
+#include <Arduino.h>
 #include "display_functions.h"
 #include "globals.h"
 #include "mux_functions.h"
-#include "servo_functions.h"
 
 // ----- Cloud placement -----
 const int CLOUD_X = 82;

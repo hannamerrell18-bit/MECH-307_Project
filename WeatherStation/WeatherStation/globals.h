@@ -1,4 +1,3 @@
-//Declaration of shared constants and global objects
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
@@ -17,11 +16,6 @@
 #define SCREEN_HEIGHT 64
 #define OLED_RESET -1
 #define SCREEN_ADDRESSS 0x3C
-
-#define SCREEN_BUTTON_PIN 8
-#define RAIN_SENSOR_PIN 6
-#define BUZZER_PIN 10
-
 
 extern Adafruit_BME280 bme;
 extern DIYables_OLED_SSD1309 display;

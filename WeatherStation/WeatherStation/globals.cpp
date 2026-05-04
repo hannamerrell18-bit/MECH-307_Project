@@ -1,5 +1,3 @@
-//Creation of global objects
-
 #include "globals.h"
 
 Adafruit_BME280 bme;

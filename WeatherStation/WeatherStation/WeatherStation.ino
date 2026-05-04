@@ -3,7 +3,6 @@
 #include <Adafruit_BME280.h>
 #include <Adafruit_GFX.h>
 #include <DIYables_OLED_SSD1309.h>
-#include <Servo.h>
 
 #include "globals.h"
 #include "mux_functions.h"

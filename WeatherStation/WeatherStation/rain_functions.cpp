@@ -2,13 +2,13 @@
 #include "rain_functions.h"
 
 #define RAIN_SENSOR_PIN 7
-#define BUZZER_PIN 8
+#define BUZZER_PIN 5
 
 int tipCount = 0;
 float rainTotal = 0.0;
 bool lastRainSensorState = HIGH;
 
-const float inPerTip = 0.1;
+const float inPerTip = 0.2;
 const float inThreshold = 1;
 int lastBuzzThreshold = 0;
 
@@ -18,7 +18,6 @@ const unsigned long rainDebounceDelay = 200;
 unsigned long rainStartTime = 0;
 const unsigned long rainDayLength = 86400000;
 
-// Non-blocking buzzer
 bool buzzerActive = false;
 unsigned long buzzerStartTime = 0;
 const unsigned long buzzerDuration = 500;
@@ -35,10 +34,10 @@ void updateRainGauge() {
   if (lastRainSensorState == HIGH && currentRainState == LOW) {
     if (millis() - lastRainTipTime > rainDebounceDelay) {
       tipCount++;
-      rainTotal = tipCount * inPerTip;
+      rainTotal = tipCount * mmPerTip;
       lastRainTipTime = millis();
 
-      int currentThreshold = (int)(rainTotal / inThreshold);
+      int currentThreshold = (int)(rainTotal / mmThreshold);
 
       if (currentThreshold > lastBuzzThreshold) {
         tone(BUZZER_PIN, 1000);

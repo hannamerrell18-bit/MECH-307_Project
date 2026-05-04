@@ -3,15 +3,17 @@
 #include "servo_functions.h"
 
 #define SERVO_PIN 9
+#define SERVO_MIN_ANGLE 20
+#define SERVO_MAX_ANGLE 160
 
 Servo solarServo;
 
-int servoPosition = 0;
+int servoPosition = SERVO_MIN_ANGLE;
 
 // Demo timing
 unsigned long sweepTime = 30000;
 unsigned long waitTime = 30000;
-int steps = 180;
+int steps = SERVO_MAX_ANGLE - SERVO_MIN_ANGLE;
 unsigned long stepDelayTime = sweepTime / steps;
 unsigned long returnDelay = 15;
 
@@ -31,9 +33,9 @@ void updateServoTracker() {
     if (currentMillis - lastServoUpdate >= stepDelayTime) {
       lastServoUpdate = currentMillis;
 
-      if (servoPosition < 180) {
+      if (servoPosition < SERVO_MAX_ANGLE) {
         servoPosition++;
-        solarServo.write(180 - servoPosition);
+        solarServo.write(servoPosition);
       } else {
         servoState = SERVO_RETURNING;
       }
@@ -43,9 +45,9 @@ void updateServoTracker() {
     if (currentMillis - lastServoUpdate >= returnDelay) {
       lastServoUpdate = currentMillis;
 
-      if (servoPosition > 0) {
+      if (servoPosition > SERVO_MIN_ANGLE) {
         servoPosition--;
-        solarServo.write(180 - servoPosition);
+        solarServo.write(servoPosition);
       } else {
         servoState = SERVO_WAITING;
         waitStartTime = currentMillis;
